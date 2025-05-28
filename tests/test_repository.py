@@ -8,7 +8,12 @@ import os
 import shutil
 import tempfile
 from pathlib import Path
-from repository import Repository
+# Este archivo contiene pruebas unitarias para la clase Repository.
+# Asegúrate de que la clase Repository esté importada correctamente
+# desde el módulo core.repository
+import pytest
+from core.repository import Repository
+
 
 def test_basic_functionality():
     """

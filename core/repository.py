@@ -3,6 +3,10 @@ import json
 import hashlib
 from datetime import datetime
 from pathlib import Path
+# core.commit  
+# Asegúrate de que este módulo existe y contiene la clase Commit
+from core.commit import Commit
+
 
 class Repository:
     """

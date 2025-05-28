@@ -4,8 +4,13 @@ import hashlib
 import shutil
 from datetime import datetime
 from pathlib import Path
+# This file is part of a simple version control system implementation.
+#from core.repository import Repository  
+# Importamos la clase Repository para interactuar con el repositorio
+
 
 class Commit:
+    
     """
     Clase que maneja la creación y gestión de commits.
     
@@ -313,6 +318,11 @@ class Commit:
             
             print(f"📁 Archivos: {list(commit['files'].keys())}")
             print("-" * 40)
+    
+    def do_something_with_repo(self, repo_path):
+        from core.repository import Repository  # Import aquí, no al inicio
+        repo = Repository(repo_path)
+        # ...resto del código...
 
 
 # Ejemplo de uso básico (para testing)
@@ -331,4 +341,3 @@ if __name__ == "__main__":
     
     print("Clase Commit lista para usar!")
     print("Para hacer commit, primero agrega archivos al staging area")
-    
