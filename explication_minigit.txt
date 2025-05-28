@@ -1,0 +1,160 @@
+# 🕹️ Mini-Git: Complete Explanation and Didactic Guide
+
+---
+
+## 🎯 What is Mini-Git?
+
+Mini-Git is a simplified version control system inspired by Git, created for educational purposes. It allows you to understand and experiment with the fundamental concepts of version control: staging, commits, history, and version recovery, all from scratch and with your own code.
+
+---
+
+## 🧑‍🏫 Project Objective
+
+The main goal of Mini-Git is **learning**. Here you can see how the basic operations of a version control system are implemented internally, understand the logic behind Git, and practice good development and documentation practices.
+
+---
+
+## ⚙️ Installation
+
+You only need **Python 3** installed. No external dependencies or additional installation required.
+
+---
+
+## 🚀 Quick Start
+
+```sh
+python minigit.py init
+python minigit.py add file.txt
+python minigit.py commit -m "First commit"
+python minigit.py log
+```
+
+---
+
+## 🎮 Available Commands
+
+- 🏁 `init`   : Initializes a new repository.
+- ➕ `add`    : Adds files to the staging area.
+- 💾 `commit`: Creates a new commit.
+- 📋 `status`: Shows the repository status.
+- 🕰️ `log`   : Shows the commit history.
+- 🔍 `show`  : Shows details of a commit.
+
+---
+
+## 🧩 Example Full Workflow
+
+```sh
+python minigit.py init
+echo "Hello Mini-Git" > example.txt
+python minigit.py add example.txt
+python minigit.py commit -m "First commit"
+python minigit.py status
+python minigit.py log
+python minigit.py show
+```
+
+---
+
+## 🏗️ Project Structure
+
+- `minigit.py`           : Main logic and CLI.
+- `repository.py`        : Repository management logic.
+- `commit.py`            : Class to represent commits.
+- `test_repository.py`   : Unit tests.
+- `test_complete_flow.py`: Complete flow tests.
+- `cheatsheet.txt`       : Quick command reference.
+- `explication_minigit.txt`: Detailed code and architecture explanation.
+
+---
+
+## 🧠 Architecture and Internal Functioning
+
+### 1. **MiniGit Class**
+   - The **main interface** for the user and CLI.
+   - Orchestrates operations and connects commands with internal classes.
+   - Example: When you run `python minigit.py add file.txt`, MiniGit receives the command and calls Repository methods.
+
+### 2. **Repository Class**
+   - Encapsulates all logic related to the repository:
+     - Initializes the folder and file structure (`.minigit/`).
+     - Manages the staging area (index).
+     - Handles objects (files and commits).
+     - Provides methods to add files, save and load commits, and query history.
+   - Allows the rest of the system to interact with the repository easily and safely.
+
+### 3. **Commit Class**
+   - Represents an individual commit.
+   - Stores information such as:
+     - Commit message.
+     - Date and time.
+     - Included files.
+     - Parent commit hash.
+   - Facilitates serialization and deserialization of commits for saving and retrieving from the file system.
+
+---
+
+## 📝 Key Method Explanations
+
+### `init`
+- Creates the necessary folder and file structure to start using Mini-Git.
+- Reason: Ensures all subsequent work is done in a controlled and safe environment.
+
+### `add`
+- Adds files to the staging area.
+- Reads the file in binary, encodes it in base64, and saves it as an object.
+- Reason: Prepares files to be included in the next commit, just like in Git.
+
+### `status`
+- Shows the current repository status: active branch, files in staging, and working directory.
+- Reason: Helps visualize which files are ready to be committed and the general project state.
+
+### `commit`
+- Creates a commit with the files in staging, saves the message, date, and parent commit hash.
+- Clears the staging area afterwards.
+- Reason: Allows saving a "point in time" of the project, facilitating recovery and history.
+
+### `log`
+- Shows the commit history, displaying hash, date, message, and files for each commit.
+- Reason: Lets you navigate the history and understand the project's evolution.
+
+### `show`
+- Shows details of a specific commit (by hash or the latest if not specified).
+- Reason: Makes it easy to inspect the changes made in each commit.
+
+---
+
+## 🔗 How the Classes Connect
+
+- **MiniGit** is the main interface and uses **Repository** and **Commit** to perform operations.
+- **Repository** is the "bridge" between MiniGit and the data on disk.
+- **Commit** is the representation of a commit and travels between MiniGit and Repository.
+- **They do not work separately:** Each class has its function, but they are connected by code calls and depend on each other for the system to work.
+
+---
+
+## 🧪 Best Practices and Tips
+
+- Make frequent commits with descriptive messages.
+- Only add files inside the repository.
+- Use the `status` command before each commit to review the state.
+- Check the history with `log` to understand the project's evolution.
+- Read and experiment with the source code to deepen your understanding.
+
+---
+
+## 📚 Additional Resources
+
+- Check the `cheatsheet.txt` file for a quick command guide.
+- Read the source code and tests to learn about testing and good development practices.
+- You can extend Mini-Git by adding branches, merges, file restoration, etc., as an advanced exercise.
+
+---
+
+## 📝 License
+
+MIT
+
+---
+
+> 🎲 Experiment, learn, and have fun versioning like in the old days! If you have questions, review the code and play with the commands to discover how Mini-Git works inside.

@@ -1,0 +1,102 @@
+# 🕹️ Mini-Git Cheatsheet
+
+¡Bienvenido a Mini-Git!  
+Aquí tienes una guía rápida con iconos retro para dominar tu propio sistema de control de versiones.
+
+---
+
+## 🎯 ¿Qué es Mini-Git?
+
+Mini-Git es un sistema de control de versiones simplificado, inspirado en Git, ideal para aprender los conceptos básicos de versionado de archivos y cómo funcionan internamente los commits, el staging y el historial.
+
+---
+
+## 🛠️ Comandos básicos
+
+- 🏁 **init**  
+  Inicializa un nuevo repositorio.  
+  `python minigit.py init`
+
+- ➕ **add**  
+  Añade archivos al área de staging.  
+  `python minigit.py add archivo1.txt archivo2.py`
+
+- 💾 **commit**  
+  Crea un nuevo commit con los archivos en staging.  
+  `python minigit.py commit -m "Mensaje del commit"`
+
+- 📋 **status**  
+  Muestra el estado del repositorio y los archivos en staging.  
+  `python minigit.py status`
+
+- 🕰️ **log**  
+  Muestra el historial de commits.  
+  `python minigit.py log`  
+  Limita la cantidad de commits mostrados:  
+  `python minigit.py log -n 5`
+
+- 🔍 **show**  
+  Muestra detalles de un commit específico.  
+  `python minigit.py show <hash>`  
+  Si omites el hash, muestra el último commit:  
+  `python minigit.py show`
+
+---
+
+## 🧩 Ejemplo paso a paso (flujo recomendado)
+
+```sh
+# 1. 🏁 Inicializa el repositorio
+python minigit.py init
+
+# 2. ➕ Añade un archivo al área de staging
+echo "Hola Mini-Git" > ejemplo.txt
+python minigit.py add ejemplo.txt
+
+# 3. 📋 Verifica el estado del repositorio
+python minigit.py status
+
+# 4. 💾 Haz tu primer commit
+python minigit.py commit -m "Primer commit"
+
+# 5. 🕰️ Consulta el historial de commits
+python minigit.py log
+
+# 6. 🔍 Muestra detalles del último commit
+python minigit.py show
+
+# 7. ➕ Añade y commitea otro archivo
+echo "Segundo archivo" > otro.txt
+python minigit.py add otro.txt
+python minigit.py commit -m "Agrega otro archivo"
+
+# 8. 📋 Verifica el estado nuevamente
+python minigit.py status
+
+# 9. 🕰️ Consulta el historial actualizado
+python minigit.py log
+
+# 10. 🔍 Muestra detalles de un commit anterior usando su hash corto
+python minigit.py show <primeros_caracteres_del_hash>
+```
+
+---
+
+## 📝 Buenas prácticas
+
+- Todos los archivos a añadir deben estar dentro de la carpeta del repositorio.
+- Puedes añadir archivos de texto o binarios.
+- Usa hashes cortos (primeros caracteres) para el comando `show` si lo prefieres.
+- Realiza commits frecuentes para mantener un historial claro y ordenado.
+- Usa mensajes de commit descriptivos.
+
+---
+
+## 📚 Más ayuda
+
+- Consulta el archivo `explicacion_minigit.txt` para una explicación detallada del funcionamiento interno.
+- Revisa el código fuente para aprender cómo se implementa cada comando.
+
+---
+
+> 🎲 ¡Experimenta, aprende y diviértete versionando como en los viejos tiempos!
