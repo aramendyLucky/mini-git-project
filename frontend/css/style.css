@@ -1,0 +1,185 @@
+/* 🎯 Mini-Git Web Interface - CSS Styles */
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --success-color: #059669;
+    --error-color: #dc2626;
+    --bg-primary: #fff;
+    --bg-secondary: #f6f8fa;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    --radius: 0.7em;
+    --shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+body {
+    background: linear-gradient(135deg, #e0e7ff 0%, #f6f8fa 100%);
+    color: var(--text-primary);
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
+}
+
+main {
+    max-width: 700px;
+    margin: 2em auto;
+    padding: 0 1em;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2em;
+}
+.logo {
+    font-family: 'Fira Mono', monospace;
+    font-size: 2em;
+    color: var(--primary-color);
+    letter-spacing: 1px;
+}
+.logo-sub {
+    color: var(--text-secondary);
+    font-size: 0.7em;
+    font-weight: 400;
+}
+
+.card {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2em 1.5em;
+    margin-bottom: 2em;
+}
+
+.status-card {
+    background: #f1f5f9;
+}
+
+.status-grid p {
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
+}
+
+.btn {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.7em 1.5em;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5em;
+}
+.btn-primary { background: var(--primary-color); }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-success { background: var(--success-color); }
+.btn-success:hover { background: #047857; }
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 0.7em;
+    margin-bottom: 1em;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 1em;
+    background: #f9fafb;
+    transition: border 0.2s;
+}
+input[type="text"]:focus, textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.alert {
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: var(--radius);
+    font-size: 1em;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+}
+.alert-info { background: #e0e7ff; color: #3730a3; }
+.alert-success { background: #d1fae5; color: #065f46; }
+.alert-error { background: #fee2e2; color: #991b1b; }
+
+.commit-list, .file-explorer {
+    margin-top: 1em;
+}
+.commit-item, .file-item {
+    background: #f3f4f6;
+    border-radius: 6px;
+    padding: 0.8em;
+    margin-bottom: 0.7em;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+.commit-item:hover, .file-item:hover {
+    background: #dbeafe;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.2);
+    z-index: 10000;
+}
+.modal-content {
+    background: #fff;
+    border-radius: 10px;
+    padding: 2em;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    max-width: 500px;
+    margin: 5em auto;
+    position: relative;
+}
+.close {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-size: 1.5em;
+    color: #888;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.form-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7em;
+    align-items: stretch;
+}
+
+.form-inline input[type="text"],
+.form-inline textarea {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+.form-inline button {
+    align-self: flex-end;
+    min-width: 160px;
+}
+
+@media (max-width: 700px) {
+    main {
+        padding: 0 0.2em;
+    }
+    .card {
+        padding: 1em 0.5em;
+    }
+    .modal-content {
+        padding: 1em;
+        max-width: 95vw;
+    }
+}

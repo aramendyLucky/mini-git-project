@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-Git Web</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <script defer src="static/js/app.js"></script>
+    <style>
+        body { background: #f6f8fa; font-family: 'Montserrat', Arial, sans-serif; }
+        .header { display: flex; align-items: center; justify-content: space-between; padding: 2rem 1rem 1rem 1rem; background: #fff; box-shadow: 0 2px 8px #0001; border-radius: 0 0 1rem 1rem; }
+        .logo { font-size: 2.2rem; font-weight: 700; color: #222; letter-spacing: 1px; }
+        .logo-sub { font-size: 1.1rem; color: #888; font-weight: 400; }
+        .btn { padding: 0.5rem 1.2rem; border-radius: 6px; border: none; background: #2d72d9; color: #fff; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .btn-primary { background: #2d72d9; }
+        .btn-success { background: #27ae60; }
+        .btn-error { background: #e74c3c; }
+        .btn-secondary { background: #888; color: #fff; }
+        .btn:hover { background: #174ea6; }
+        .btn-error:hover { background: #c0392b; }
+        .btn-secondary:hover { background: #555; }
+        main { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .card { background: #fff; border-radius: 1rem; box-shadow: 0 2px 8px #0001; margin-bottom: 2rem; padding: 2rem; }
+        .status-card { margin-top: 1.5rem; }
+        .status-grid { display: flex; gap: 2rem; margin-bottom: 1.5rem; }
+        .stat-card { flex: 1; background: #f3f6fa; border-radius: 0.7rem; padding: 1rem; text-align: center; }
+        .stat-number { font-size: 2rem; font-weight: 700; color: #2d72d9; }
+        .stat-label { color: #888; font-size: 1rem; }
+        .form-inline { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+        .form-inline input, .form-inline textarea { flex: 1; padding: 0.7rem; border-radius: 6px; border: 1px solid #d0d7de; font-size: 1rem; }
+        .form-inline textarea { min-height: 40px; resize: vertical; }
+        .file-explorer { display: flex; flex-direction: column; gap: 0.5rem; }
+        .file-item { display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 1rem; border-radius: 6px; background: #f3f6fa; cursor: pointer; transition: background 0.2s; }
+        .file-item:hover { background: #e0e7ef; }
+        .file-icon { font-size: 1.3rem; }
+        .file-name { font-family: 'Fira Mono', monospace; font-size: 1rem; color: #222; }
+        .commit-list { display: flex; flex-direction: column; gap: 1rem; }
+        .commit-item { background: #f3f6fa; border-radius: 0.7rem; padding: 1rem; cursor: pointer; transition: background 0.2s; }
+        .commit-item:hover { background: #e0e7ef; }
+        .commit-hash { font-family: 'Fira Mono', monospace; color: #2d72d9; font-size: 1rem; }
+        .commit-message { font-weight: 600; color: #222; margin-bottom: 0.3rem; }
+        .commit-meta { display: flex; gap: 1.5rem; color: #888; font-size: 0.95rem; }
+        .empty-state { text-align: center; color: #aaa; padding: 2rem 0; }
+        .empty-state-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100vw; height: 100vh; overflow: auto; background: rgba(0,0,0,0.25); }
+        .modal-content { background: #fff; margin: 5% auto; padding: 2rem; border-radius: 1rem; max-width: 500px; position: relative; }
+        .close { position: absolute; right: 1.5rem; top: 1.5rem; font-size: 2rem; color: #888; cursor: pointer; }
+        #alert-container { position: fixed; top: 20px; right: 20px; z-index: 3000; max-width: 400px; }
+        .alert { margin-bottom: 0.7rem; border-radius: 6px; padding: 1rem 1.5rem; font-size: 1rem; font-weight: 500; box-shadow: 0 2px 8px #0001; display: flex; align-items: center; gap: 0.7rem; }
+        .alert-success { background: #eafaf1; color: #27ae60; }
+        .alert-error { background: #fdeaea; color: #e74c3c; }
+        .alert-info { background: #eaf1fb; color: #2d72d9; }
+        .alert-warning { background: #fffbe6; color: #f1c40f; }
+        #diff-modal .modal-content { max-width: 700px; }
+        #diff-modal pre { background: #222; color: #fff; padding: 1em; border-radius: 8px; max-height: 400px; overflow: auto; font-size: 0.95em; }
+        @media (max-width: 700px) { .card, main { padding: 1rem; } .status-grid { flex-direction: column; gap: 1rem; } }
+    </style>
+</head>
+<body>
+    <div id="alert-container"></div>
+    <main>
+        <header class="header">
+            <h1 class="logo">🕹️ Mini-Git <span class="logo-sub">Web</span></h1>
+            <button id="init-btn" class="btn btn-primary">🏁 Inicializar Repositorio</button>
+        </header>
+
+        <section class="card status-card">
+            <h2>📊 Estado del Repositorio</h2>
+            <div id="repo-stats" class="status-grid"></div>
+        </section>
+
+        <section class="card">
+            <h2>➕ Añadir archivo</h2>
+            <form id="add-file-form" class="form-inline">
+                <input type="text" id="file-name" placeholder="Nombre del archivo" required>
+                <textarea id="file-content-input" placeholder="Contenido del archivo" required></textarea>
+                <button type="submit" class="btn">Agregar archivo</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>💾 Hacer commit</h2>
+            <form id="commit-form" class="form-inline">
+                <input type="text" id="commit-message" placeholder="Mensaje del commit" required>
+                <button type="submit" class="btn btn-success">Hacer commit</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>🕰️ Commits recientes</h2>
+            <div id="commit-history" class="commit-list"></div>
+        </section>
+
+        <section class="card">
+            <h2>📁 Archivos</h2>
+            <div id="file-list" class="file-explorer"></div>
+        </section>
+    </main>
+
+    <!-- Modales para detalles -->
+    <div id="file-content-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('file-content-modal').style.display='none'">&times;</span>
+            <h3 class="modal-title"></h3>
+            <pre class="modal-body"></pre>
+        </div>
+    </div>
+    <div id="commit-detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('commit-detail-modal').style.display='none'">&times;</span>
+            <h3 class="modal-title"></h3>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</body>
+</html>
